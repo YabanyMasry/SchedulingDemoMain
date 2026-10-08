@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================================
+ * Role-aware theming — read this before adding UI
+ * =========================================================================
+ *
+ *  Three "brand" colors flip based on who is signed in:
+ *      Admin    → orange   (operational control)
+ *      Teacher  → purple   (professional / distinct)
+ *      Student  → blue     (friendly / approachable)
+ *
+ *  The switch happens via `data-role="Admin|Teacher|Student"` on <body>, set
+ *  by `RoleThemeBinder` (src/components/RoleThemeBinder.jsx) from the auth
+ *  context. Auth pages and pre-login screens inherit the `:root` defaults
+ *  (Admin orange) so nothing is unstyled before sign-in.
+ *
+ *  HOW TO USE:
+ *  - In CSS:   `background: var(--brand)`, `color: var(--brand-dark)`,
+ *              `background: var(--brand-tint)`, `box-shadow: 0 0 0 3px var(--brand-focus-ring)`
+ *  - In JSX:   `className="bg-brand text-white"` (Tailwind tokens map to the
+ *              same CSS vars — see tailwind.config.js)
+ *  - In inline styles: `style={{ background: 'var(--brand-tint)' }}` (avoid
+ *              when a className will do)
+ *
+ *  NEVER hardcode `#ff8a00` / `rgba(255,138,0,...)` / `#0d9488` / `#6366f1`
+ *  in component code. If you need a tint not covered by the tokens below,
+ *  add it once here so all three role themes pick it up automatically.
+ *
+ *  All tint tokens are derived from `--brand-base` with `color-mix()` —
+ *  resolved per consuming element, so they always match the active role
+ *  without per-role duplication.
+ * ========================================================================= */
+
+:root {
+  /* Default / pre-auth theme = Admin orange. Keeps the auth pages and the
+     very first paint before the role is known visually consistent. */
+  --brand-base: #ff8a00;
+  --brand-dark: #ff7a00;
+  --brand-light: #ff9500;
+
+  /* Derived tokens — defined once. var(--brand-base) resolves per element,
+     so changing --brand-base on <body data-role="..."> flips every tint. */
+  --brand: var(--brand-base);
+  --brand-tint-faint: color-mix(in srgb, var(--brand-base) 6%, transparent);
+  --brand-tint: color-mix(in srgb, var(--brand-base) 12%, transparent);
+  --brand-tint-strong: color-mix(in srgb, var(--brand-base) 22%, transparent);
+  --brand-tint-bold: color-mix(in srgb, var(--brand-base) 42%, transparent);
+  --brand-focus-ring: color-mix(in srgb, var(--brand-base) 10%, transparent);
+  --brand-shadow: color-mix(in srgb, var(--brand-base) 22%, transparent);
+  --brand-gradient: linear-gradient(180deg, var(--brand-light) 0%, var(--brand-dark) 100%);
+
+  /* Non-brand semantic tokens — independent of role */
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --text-h: #1a1a1a;
+  --text: #717171;
+  --text-soft: #9ca3af;
+  --border: #eceef2;
+  --present: var(--brand);
+  --absent: color-mix(in srgb, var(--brand-base) 12%, #f3e7d6);
+  --shadow-soft: 0px 4px 20px rgba(0, 0, 0, 0.05);
+
+  font: 16px/1.5 'Inter', 'Segoe UI', sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Role overrides. Only the three "base" colors are redeclared; the derived
+   tokens above pick up the new base automatically via color-mix(). */
+body[data-role='Admin'] {
+  --brand-base: #ff8a00;
+  --brand-dark: #ff7a00;
+  --brand-light: #ff9500;
+}
+
+body[data-role='Teacher'] {
+  --brand-base: #8b5cf6;
+  --brand-dark: #7c3aed;
+  --brand-light: #a78bfa;
+}
+
+body[data-role='Student'] {
+  --brand-base: #3b82f6;
+  --brand-dark: #2563eb;
+  --brand-light: #60a5fa;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+#root {
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  box-sizing: border-box;
+}

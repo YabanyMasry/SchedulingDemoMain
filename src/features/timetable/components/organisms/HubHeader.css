@@ -1,0 +1,219 @@
+/* --- Desktop Layout (Default) --- */
+.hub-header-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.04);
+  margin-top: 20px;
+  padding: 16px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.batch-actions-container {
+  display: flex;
+  justify-content: space-between; /* Pushes Search/Filter Left and Actions Right */
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 24px;
+}
+
+/* Row 1/Left Side: Search and Filter stay together */
+.search-controls-row {
+  display: flex;
+  align-items: center;
+  flex: 1; /* Allows search area to grow */
+  max-width: 600px; /* Prevents search from becoming awkwardly long on huge screens */
+}
+
+.search-controls-row .hub-search-row {
+  margin: 0;
+  width: 100%;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.search-controls-row .hub-search-expandable {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.search-controls-row .hub-search-toggle {
+  display: none;
+}
+
+.search-controls-row .hub-search-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+
+.search-controls-row .hub-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-soft);
+  pointer-events: none;
+}
+
+.search-controls-row .hub-search-input {
+  width: 100%;
+  height: 40px;
+  margin: 0;
+  padding-left: 40px;
+}
+
+.search-controls-row .hub-filter-button {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 999px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Row 2/Right Side: Batch Actions and Select All pinned to the right */
+.batch-actions-bar {
+  display: flex;
+  flex-direction: row-reverse; /* Reverses order so 'Select All' is the right-most element */
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* --- Specific Element Styling --- */
+.select-all-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 16px;
+  background: #fff7ed; 
+  border: 1px solid #ffedd5;
+  border-radius: 999px;
+  user-select: none;
+  transition: all 0.2s ease;
+  order: 2; /* Ensures it sits to the right of the action buttons */
+}
+
+.select-all-group:hover {
+  background: #ffedd5;
+}
+
+.batch-actions-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 4px 12px;
+  background: #f8fafc;
+  border-radius: 99px;
+  border: 1px solid #e2e8f0;
+}
+
+.batch-actions-row .pill-button:disabled {
+  background: transparent !important;
+  color: #94a3b8 !important;
+  border-color: #e2e8f0 !important;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* --- Mobile Responsive Layout --- */
+@media (max-width: 768px) {
+  .batch-actions-container {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+  }
+
+  .search-controls-row {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    order: 0;
+  }
+
+  .batch-actions-bar {
+    order: 1;
+    gap: 8px;
+    margin-top: 0;
+  }
+
+  .batch-actions-bar.batch-actions-mobile-hidden {
+    display: none;
+  }
+
+  .search-controls-row .hub-search-row {
+    display: flex;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .search-controls-row .hub-search-expandable {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+
+  .search-controls-row .hub-search-row.is-mobile-open .hub-search-expandable {
+    flex: 1;
+  }
+
+  .search-controls-row .hub-search-toggle {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 999px;
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .search-controls-row .hub-search-input-wrap {
+    display: none;
+    width: 0;
+    opacity: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .search-controls-row .hub-filter-button {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+
+  .batch-actions-row {
+    gap: 6px;
+    padding: 4px 8px;
+  }
+
+  .batch-selected-count,
+  .batch-cancel-button,
+  .batch-action-label,
+  .select-all-group span {
+    display: none;
+  }
+
+  .batch-action-button {
+    min-width: 34px;
+    min-height: 34px;
+    padding: 8px;
+    justify-content: center;
+  }
+
+  .select-all-group {
+    padding: 8px 10px;
+    gap: 0;
+  }
+}

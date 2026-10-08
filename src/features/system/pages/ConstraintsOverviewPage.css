@@ -1,0 +1,237 @@
+/* Constraints overview — read-only explainer of the engine rules + the algorithm.
+   No interactive state; styling is intentionally token-driven so the page picks up
+   each role's brand color via the new theming system. */
+
+.co-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.co-intro {
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 6px 0 0;
+  max-width: 820px;
+}
+
+.co-section h2 {
+  margin: 0 0 4px;
+  color: var(--text-h);
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+
+.co-section-subtitle {
+  margin: 0 0 16px;
+  color: var(--text-soft);
+  font-size: 13px;
+  max-width: 780px;
+}
+
+.co-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.co-group-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 4px;
+}
+
+.co-group-title h3 {
+  margin: 0;
+  color: var(--text-h);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.co-group-title span {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.co-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.co-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.co-card:hover {
+  border-color: var(--brand);
+  box-shadow: 0 6px 20px -10px var(--brand-shadow);
+}
+
+.co-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.co-code {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--brand-tint);
+  color: var(--brand-dark);
+}
+
+.co-code-soft {
+  background: color-mix(in srgb, var(--text-soft) 14%, transparent);
+  color: var(--text-h);
+}
+
+.co-card-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-h);
+  flex: 1;
+  min-width: 0;
+}
+
+.co-card-what {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.co-card-why {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-soft);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.co-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.co-tag-blocking {
+  background: #fde8e7;
+  color: #b91c1c;
+}
+
+.co-tag-overridable {
+  background: var(--brand-tint);
+  color: var(--brand-dark);
+}
+
+.co-tag-pending {
+  background: #fff8ef;
+  color: #a56f26;
+}
+
+/* Algorithm pipeline */
+.co-pipeline {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+@media (min-width: 900px) {
+  .co-pipeline {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.co-step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--brand-tint-faint);
+  border: 1px solid var(--brand-tint);
+}
+
+.co-step-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.co-step-num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--brand);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.co-step h3 {
+  margin: 0;
+  font-size: 15px;
+  color: var(--text-h);
+}
+
+.co-step p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.co-step .co-step-purpose {
+  font-size: 12px;
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+/* Override callout */
+.co-callout {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--brand-tint-faint);
+  border-left: 3px solid var(--brand);
+  border-radius: 0 12px 12px 0;
+}
+
+.co-callout h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  color: var(--text-h);
+}
+
+.co-callout p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--text);
+}
